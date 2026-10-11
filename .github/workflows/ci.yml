@@ -29,3 +29,13 @@ jobs:
           docker build -t azure-project2:${{ github.sha }} ./app
           echo "Docker image built successfully"
 
+          
+      - name: Scan Docker Image with Trivy
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          image-ref: 'azure-project2:${{ github.sha }}'
+          format: 'table'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '1'
+
+
