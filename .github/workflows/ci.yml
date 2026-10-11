@@ -7,12 +7,18 @@ on:
       - main
   workflow_dispatch:
 
+
 jobs:
   validate:
     name: Validate Application
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write
+      contents: read
+
     steps:
+
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -37,5 +43,14 @@ jobs:
           format: 'table'
           severity: 'CRITICAL,HIGH'
           exit-code: '1'
+
+          
+      - name: Login to Azure using OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
 
 
