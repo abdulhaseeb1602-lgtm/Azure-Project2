@@ -56,7 +56,7 @@ jobs:
 
       - name: Tag and Push Docker Image to ACR
         run: |
-          docker tag azure-project2:ci haseebproject2acr.azurecr.io/azure-project2:${{ github.sha }}
+          docker tag azure-project2:${{ github.sha }} haseebproject2acr.azurecr.io/azure-project2:${{ github.sha }}
           docker push haseebproject2acr.azurecr.io/azure-project2:${{ github.sha }}
 
 
