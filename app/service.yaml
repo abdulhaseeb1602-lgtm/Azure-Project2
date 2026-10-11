@@ -1,0 +1,13 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-project2-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: azure-project2
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

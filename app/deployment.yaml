@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azure-project2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: azure-project2
+  template:
+    metadata:
+      labels:
+        app: azure-project2
+    spec:
+      containers:
+        - name: azure-project2
+          image: haseebproject2acr.azurecr.io/azure-project2:v1
+          ports:
+            - containerPort: 80

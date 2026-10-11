@@ -1,0 +1,24 @@
+
+# Terraform
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/*.tfvars
+**/*.tfvars.json
+**/crash.log
+**/crash.*.log
+
+# Credentials and secrets
+*.pem
+*.key
+*.pfx
+*.p12
+.env
+.env.*
+**/secrets.yaml
+**/secrets.yml
+**/.kube/config
+
+# Local files
+.vscode/
+.DS_Store
