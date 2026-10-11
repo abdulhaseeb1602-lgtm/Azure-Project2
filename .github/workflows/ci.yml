@@ -22,4 +22,10 @@ jobs:
           test -f app/index.html
           test -f app/deployment.yaml
           test -f app/service.yaml
-          echo "Application files verified successfully"
+          
+          
+      - name: Build Docker Image
+        run: |
+          docker build -t azure-project2:${{ github.sha }} ./app
+          echo "Docker image built successfully"
+
