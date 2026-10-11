@@ -1,0 +1,25 @@
+
+name: Azure Project 2 CI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate Application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Verify Application Files
+        run: |
+          test -f app/Dockerfile
+          test -f app/index.html
+          test -f app/deployment.yaml
+          test -f app/service.yaml
+          echo "Application files verified successfully"
