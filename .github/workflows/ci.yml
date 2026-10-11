@@ -30,11 +30,10 @@ jobs:
           test -f app/service.yaml
           
           
-      - name: Build Docker Image
+      - name: Tag and Push Docker Image to ACR
         run: |
-          docker build -t azure-project2:${{ github.sha }} ./app
-          echo "Docker image built successfully"
-
+          docker tag azure-project2:${{ github.sha }} haseebproject2acr.azurecr.io/azure-project2:${{ github.sha }}
+          docker push haseebproject2acr.azurecr.io/azure-project2:${{ github.sha }}
           
       - name: Scan Docker Image with Trivy
         uses: aquasecurity/trivy-action@master
@@ -51,6 +50,14 @@ jobs:
           client-id: ${{ vars.AZURE_CLIENT_ID }}
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Login to Azure Container Registry
+        run: az acr login --name haseebproject2acr
+
+      - name: Tag and Push Docker Image to ACR
+        run: |
+          docker tag azure-project2:ci haseebproject2acr.azurecr.io/azure-project2:${{ github.sha }}
+          docker push haseebproject2acr.azurecr.io/azure-project2:${{ github.sha }}
 
 
 
