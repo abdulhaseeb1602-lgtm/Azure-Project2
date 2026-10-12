@@ -15,7 +15,7 @@ jobs:
 
     permissions:
       id-token: write
-      contents: read
+      contents: write
 
     steps:
 
@@ -60,4 +60,11 @@ jobs:
           docker push haseebproject2acr.azurecr.io/azure-project2:${{ github.sha }}
 
 
-
+      - name: Update Kubernetes manifest for Argo CD
+        run: |
+          sed -i "s|image: haseebproject2acr.azurecr.io/azure-project2:.*|image: haseebproject2acr.azurecr.io/azure-project2:${{ github.sha }}|" app/deployment.yaml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/deployment.yaml
+          git diff --cached --quiet || git commit -m "Update AKS image to ${{ github.sha }}"
+          git push
